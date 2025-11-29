@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Firebase</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJkeOxGOPmaDAW7f0Av1FuRGEYuhSQMXoeKw&s"
+        class="hidden" id="fuffy" />
+    <!-- este es toda la parte del formulario que desaparece al iniciar la sesión-->
+    <div class="formulario">
+        <h1>Inicio de sesión</h1>
+        <form method="post">
+            <div class="username">
+                <input type="text" id="email"> <label> email </label>
+            </div>
+            <div class="password">
+                <input type="password" id="password"> <label> Contraseña </label>
+            </div>
+            <!-- boton para iniciar sesión con un correo propio de la pagina -->
+            <div class="Boton">
+                <input type="Button" value="Iniciar sesion" id="button-login" />
+            </div>
+            <!-- boton para registrarse que abre una ventana emergente-->
+            <div class="registro">
+                <p>¿No tienes una cuenta?</p>
+                <input type="button" value="registrate" id="button-register">
+            </div>
+            <p>Otros metodos de inicio:</p>
+        </form>
+    </div>
+    <input type="button" value="logout" id="button-logout2">
+
+    <!-- Ventana emergente de inicio de registro -->
+    <dialog id="RegistroPopup">
+        <div class="contenido-registro">
+            <h2>Registrate</h2>
+            <label> Nombre de usuario </label>
+            <div>
+                <input type="text" id="Input-Username" class="InputRegister" placeholder="Username">
+            </div>
+            <label> Correo electronico</label>
+            <div>
+                <input type="email" id="Input-Email" class="InputRegister" placeholder="Email">
+            </div>
+            <label> Contraseña </label>
+            <div>
+                <input type="password" id="Input-Password" class="InputRegister" placeholder="password">
+            </div>
+            <input type="button" value="Registrarse" id="Send-Register">
+            <input type="button" value="Cancelar" id="Cancel-Register">
+        </div>
+        <dialog>
+
+
+            <!-- script principal (usa módulos ES) -->
+            <script type="module" src="./login.js"></script>
+
+</body>
+
+</html>
