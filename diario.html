@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+    <!-- html esperando su script y su hoja de estilos -->
+
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Diario</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header>
+    <h1>Mi Diario</h1>
+    <nav>
+      <button id="new-entry-btn">Nueva Entrada</button>
+      <button id="view-entries-btn">Ver Entradas</button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- Sección para crear o editar una entrada -->
+    <section id="editor-section">
+      <h2>Nueva Entrada</h2>
+      <form id="diary-form">
+
+        <label for="entry-date">Fecha:</label>
+        <input type="date" id="entry-date" name="entry-date" required>
+
+        <label for="entry-title">Título:</label>
+        <input type="text" id="entry-title" name="entry-title" placeholder="Título de tu entrada" required>
+
+        <label for="entry-text">Contenido:</label>
+        <textarea id="entry-text" name="entry-text" rows="10" placeholder="Escribe aquí tu entrada..."></textarea>
+
+        <fieldset>
+          <legend>Formato de texto</legend>
+
+          <label for="font-family">Tipografía:</label>
+          <select id="font-family" name="font-family">
+            <option value="sans-serif">Sans-serif</option>
+            <option value="serif">Serif</option>
+            <option value="monospace">Monospace</option>
+          </select>
+
+          <label for="font-size">Tamaño:</label>
+          <input type="number" id="font-size" name="font-size" min="10" max="48" value="16">
+
+          <label for="font-style">Estilo:</label>
+          <select id="font-style" name="font-style">
+            <option value="normal">Normal</option>
+            <option value="italic">Cursiva</option>
+            <option value="bold">Negrita</option>
+          </select>
+
+          <label for="font-color">Color:</label>
+          <input type="color" id="font-color" name="font-color" value="#000000">
+        </fieldset>
+
+        <button type="submit">Guardar Entrada</button>
+      </form>
+    </section>
+
+    <!-- Sección para consultar entradas existentes -->
+    <section id="entries-section">
+      <h2>Entradas Guardadas</h2>
+      <label for="search-date">Filtrar por fecha:</label>
+      <input type="date" id="search-date" name="search-date">
+
+      <ul id="entries-list">
+        <!-- Aquí se insertarán dinámicamente las entradas -->
+        <li>
+          <h3>12/11/2025 - Día de prueba</h3>
+          <p>Esta es una entrada de prueba :D</p>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+</body>
+</html>

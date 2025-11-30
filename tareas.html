@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Tareas y Objetivos</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Gestor de Tareas y Objetivos</h1>
+        <nav>
+            <ul>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#calendario">Calendario</a></li>
+                <li><a href="#recordatorios">Recordatorios</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Sección de Crear Nuevo Objetivo -->
+        <section id="crear-objetivo">
+            <h2>Crear Nuevo Objetivo</h2>
+            <form id="form-nuevo-objetivo">
+                <div>
+                    <label for="titulo">Título del Objetivo:</label>
+                    <input type="text" id="titulo" name="titulo" required>
+                </div>
+
+                <div>
+                    <label for="tipo">Tipo de Objetivo:</label>
+                    <select id="tipo" name="tipo" required>
+                        <option value="">Seleccionar tipo</option>
+                        <option value="rutinario">Rutinario</option>
+                        <option value="puntual">Puntual</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="frecuencia">Frecuencia (veces por día):</label>
+                    <input type="number" id="frecuencia" name="frecuencia" min="1" value="1" required>
+                </div>
+
+                <!-- Campos específicos para Objetivos Rutinarios -->
+                <div id="campos-rutinario">
+                    <fieldset>
+                        <legend>Días de la Semana:</legend>
+                        <label><input type="checkbox" name="dias" value="lunes"> Lunes</label>
+                        <label><input type="checkbox" name="dias" value="martes"> Martes</label>
+                        <label><input type="checkbox" name="dias" value="miercoles"> Miércoles</label>
+                        <label><input type="checkbox" name="dias" value="jueves"> Jueves</label>
+                        <label><input type="checkbox" name="dias" value="viernes"> Viernes</label>
+                        <label><input type="checkbox" name="dias" value="sabado"> Sábado</label>
+                        <label><input type="checkbox" name="dias" value="domingo"> Domingo</label>
+                    </fieldset>
+                </div>
+
+                <!-- Campos específicos para Objetivos Puntuales -->
+                <div id="campos-puntual">
+                    <label for="fecha-limite">Fecha Límite:</label>
+                    <input type="date" id="fecha-limite" name="fecha-limite">
+                </div>
+
+                <div>
+                    <label for="hora-recordatorio">Hora de Recordatorio:</label>
+                    <input type="time" id="hora-recordatorio" name="hora-recordatorio">
+                </div>
+
+                <div>
+                    <label for="antelacion">Antelación (minutos):</label>
+                    <input type="number" id="antelacion" name="antelacion" min="0" value="15">
+                </div>
+
+                <button type="submit">Crear Objetivo</button>
+            </form>
+        </section>
+
+        <!-- Sección de Objetivos -->
+        <section id="objetivos">
+            <h2>Mis Objetivos</h2>
+
+            <!-- Objetivos Rutinarios -->
+            <article id="objetivos-rutinarios">
+                <h3>Objetivos Rutinarios</h3>
+                <ul id="lista-rutinarios">
+                    <!-- Ejemplo de objetivo rutinario -->
+                    <li>
+                        <div>
+                            <h4>Tender la cama</h4>
+                            <p>Frecuencia: 1 vez al día</p>
+                            <p>Días: Lunes, Martes, Miércoles, Jueves, Viernes, Sábado, Domingo</p>
+                            <p>Recordatorio: 08:00 AM (15 min antes)</p>
+                        </div>
+                        <div>
+                            <button>Marcar como Cumplido</button>
+                            <button>Eliminar</button>
+                        </div>
+                        <div>
+                            <p>Progreso hoy: 0/1</p>
+                            <button>+ Completar</button>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div>
+                            <h4>Tomar agua</h4>
+                            <p>Frecuencia: 8 veces al día</p>
+                            <p>Días: Lunes, Martes, Miércoles, Jueves, Viernes, Sábado, Domingo</p>
+                            <p>Recordatorio: Cada 2 horas (15 min antes)</p>
+                        </div>
+                        <div>
+                            <button>Marcar como Cumplido</button>
+                            <button>Eliminar</button>
+                        </div>
+                        <div>
+                            <p>Progreso hoy: 3/8</p>
+                            <button>+ Completar</button>
+                        </div>
+                    </li>
+                </ul>
+            </article>
+
+            <!-- Objetivos Puntuales -->
+            <article id="objetivos-puntuales">
+                <h3>Objetivos Puntuales</h3>
+                <ul id="lista-puntuales">
+                    <!-- Ejemplo de objetivo puntual -->
+                    <li>
+                        <div>
+                            <h4>Entregar proyecto de trabajo</h4>
+                            <p>Frecuencia: 1 vez</p>
+                            <p>Fecha límite: 15/11/2025</p>
+                            <p>Recordatorio: 14/11/2025 - 09:00 AM</p>
+                        </div>
+                        <div>
+                            <button>Marcar como Cumplido</button>
+                            <button>Eliminar</button>
+                        </div>
+                        <div>
+                            <p>Estado: Pendiente</p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div>
+                            <h4>Comprar regalo de cumpleaños</h4>
+                            <p>Frecuencia: 1 vez</p>
+                            <p>Fecha límite: 20/11/2025</p>
+                            <p>Recordatorio: 19/11/2025 - 10:00 AM</p>
+                        </div>
+                        <div>
+                            <button>Marcar como Cumplido</button>
+                            <button>Eliminar</button>
+                        </div>
+                        <div>
+                            <p>Estado: Pendiente</p>
+                        </div>
+                    </li>
+                </ul>
+            </article>
+        </section>
+
+        <!-- Sección de Calendario -->
+        <section id="calendario">
+            <h2>Calendario de Objetivos</h2>
+            <div id="calendario-container">
+                <div id="calendario-header">
+                    <button id="mes-anterior">&#8249;</button>
+                    <h3 id="mes-actual">Noviembre 2025</h3>
+                    <button id="mes-siguiente">&#8250;</button>
+                </div>
+
+                <table id="calendario-tabla">
+                    <thead>
+                        <tr>
+                            <th>Lun</th>
+                            <th>Mar</th>
+                            <th>Mié</th>
+                            <th>Jue</th>
+                            <th>Vie</th>
+                            <th>Sáb</th>
+                            <th>Dom</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>1</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                        </tr>
+                        <tr>
+                            <td class="hoy">10</td>
+                            <td>11</td>
+                            <td>12</td>
+                            <td>13</td>
+                            <td>14</td>
+                            <td class="fecha-limite">15
+                                <div class="objetivo-dia">
+                                    <small>Entregar proyecto</small>
+                                </div>
+                            </td>
+                            <td>16</td>
+                        </tr>
+                        <tr>
+                            <td>17</td>
+                            <td>18</td>
+                            <td>19</td>
+                            <td class="fecha-limite">20
+                                <div class="objetivo-dia">
+                                    <small>Comprar regalo</small>
+                                </div>
+                            </td>
+                            <td>21</td>
+                            <td>22</td>
+                            <td>23</td>
+                        </tr>
+                        <tr>
+                            <td>24</td>
+                            <td>25</td>
+                            <td>26</td>
+                            <td>27</td>
+                            <td>28</td>
+                            <td>29</td>
+                            <td>30</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="leyenda-calendario">
+                <h4>Leyenda:</h4>
+                <ul>
+                    <li><span class="leyenda-hoy"></span> Día actual</li>
+                    <li><span class="leyenda-fecha-limite"></span> Fecha límite de objetivo</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Sección de Recordatorios -->
+        <section id="recordatorios">
+            <h2>Recordatorios Activos</h2>
+            <div id="lista-recordatorios">
+                <article class="recordatorio">
+                    <h4>Recordatorio: Tender la cama</h4>
+                    <p>Hora programada: 08:00 AM</p>
+                    <p>Tipo: Rutinario - Diario</p>
+                    <button>Desactivar</button>
+                </article>
+
+                <article class="recordatorio">
+                    <h4>Recordatorio: Beber agua</h4>
+                    <p>Próxima hora: 10:00 AM, 12:00 PM, 02:00 PM...</p>
+                    <p>Tipo: Rutinario - 8 veces al día</p>
+                    <button>Desactivar</button>
+                </article>
+
+                <article class="recordatorio">
+                    <h4>Recordatorio: Entregar proyecto</h4>
+                    <p>Fecha y hora: 14/11/2025 - 09:00 AM</p>
+                    <p>Tipo: Puntual</p>
+                    <button>Desactivar</button>
+                </article>
+
+                <article class="recordatorio">
+                    <h4>Recordatorio: Comprar regalo</h4>
+                    <p>Fecha y hora: 19/11/2025 - 10:00 AM</p>
+                    <p>Tipo: Puntual</p>
+                    <button>Desactivar</button>
+                </article>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
