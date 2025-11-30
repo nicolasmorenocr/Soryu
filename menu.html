@@ -3,18 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu</title>
+    <title>Menú Principal</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <div class="container">
+        <h1>Bienvenido</h1>
+        
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button id="prevMonth" class="calendar-nav">&lt;</button>
+                <h2 id="monthYear"></h2>
+                <button id="nextMonth" class="calendar-nav">&gt;</button>
+            </div>
+            <div id="calendar" class="calendar"></div>
+        </div>
 
-    <h1>¡Bienvenido!</h1>
-
-    <div class="botones">
-        <a class="btn" href="diario.html">Diario</a>
-        <a class="btn" href="tareas.html">Tareas</a>
-        <a class="btn" href="calma.html">Calma</a>
+        <div class="botones">
+            <a href="tareas.html" class="btn">Tareas</a>
+            <a href="diario.html" class="btn">Diario</a>
+        </div>
     </div>
 
+    <script src="frontscript.js"></script>
+    <script>
+        // Inicializar calendario en el menú
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCalendar(new Date());
+            setupCalendarNavigation();
+        });
+    </script>
 </body>
 </html>
