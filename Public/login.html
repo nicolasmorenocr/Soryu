@@ -5,35 +5,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Firebase</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/styles.css" />
 </head>
 
 <body>
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJkeOxGOPmaDAW7f0Av1FuRGEYuhSQMXoeKw&s"
         class="hidden" id="fuffy" />
     <!-- este es toda la parte del formulario que desaparece al iniciar la sesión-->
-    <div class="formulario">
-        <h1>Inicio de sesión</h1>
+<h1>Inicio de sesión</h1>
+
+<div class="formulario"> 
+    <div class="login-card">
         <form method="post">
             <div class="username">
-                <input type="text" id="email"> <label> email </label>
+                <input type="text" id="email" class="input-field" placeholder="Correo Electrónico">
             </div>
             <div class="password">
-                <input type="password" id="password"> <label> Contraseña </label>
+                <input type="password" id="password" class="input-field" placeholder="Contraseña">
             </div>
             <!-- boton para iniciar sesión con un correo propio de la pagina -->
             <div class="Boton">
-                <input type="Button" value="Iniciar sesion" id="button-login" />
+                <input type="Button" value="Iniciar Sesión" class="btn" id="button-login" />
             </div>
-            <!-- boton para registrarse que abre una ventana emergente-->
+            <!-- boton para registrarse que abre una ventana emergente-->  
             <div class="registro">
-                <p>¿No tienes una cuenta?</p>
-                <input type="button" value="registrate" id="button-register">
+                <p class="p-login">¿No tienes una cuenta?</p>
+                <input type="button" value="Regístrate" class="btn" id="button-register">
             </div>
-            <p>Otros metodos de inicio:</p>
+            <p class="p-login">Otros metodos de inicio:</p>
         </form>
     </div>
-    <input type="button" value="logout" id="button-logout2">
+    <div class="logout-container">
+    <input type="button" value="logout" class="btn" id="button-logout2">
+</div>
+
+</div>
+
 
     <!-- Ventana emergente de inicio de registro -->
     <dialog id="RegistroPopup">
