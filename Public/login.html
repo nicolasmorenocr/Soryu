@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Firebase</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/accesibilidad-estilos.css">
+
 </head>
 
 <body>
@@ -36,11 +38,9 @@
         </form>
     </div>
     <div class="logout-container">
-    <input type="button" value="logout" class="btn" id="button-logout2">
+        <input type="button" value="logout" class="btn" id="button-logout2">
+    </div>
 </div>
-
-</div>
-
 
     <!-- Ventana emergente de inicio de registro -->
     <dialog id="RegistroPopup">
@@ -61,11 +61,10 @@
             <input type="button" value="Registrarse" id="Send-Register">
             <input type="button" value="Cancelar" id="Cancel-Register">
         </div>
-        <dialog>
+    </dialog>
 
-
-            <!-- script principal (usa módulos ES) -->
-            <script type="module" src="./login.js"></script>
+    <script src="js/accesibilidad.js"></script>
+    <script type="module" src="js/login.js"></script>
 
 </body>
 
