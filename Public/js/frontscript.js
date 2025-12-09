@@ -443,3 +443,36 @@ function deleteEntry(index) {
         loadEntries();
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const panic = document.getElementById('panic-button');
+  if (!panic) return;
+
+  try {
+    // Mover el elemento al <html> (documentElement) para que no lo afecte transform en body
+    document.documentElement.appendChild(panic);
+
+    // Forzar estilos vía JS por si algo lo sobreescribe
+    panic.style.position = 'fixed';
+    panic.style.left = '25px';
+    panic.style.bottom = '25px';
+    panic.style.zIndex = '9999999';
+    panic.style.pointerEvents = 'auto';
+  } catch (err) {
+    console.warn('No se pudo mover panic-button:', err);
+  }
+
+  // Opcional: si quieres que al abrir el panel de accesibilidad se oculte, intenta esto:
+  const toggle = document.getElementById('accessibility-toggle');
+  const menu = document.getElementById('accessibility-menu');
+  if (toggle && menu) {
+    const obs = new MutationObserver(() => {
+      // si el menu está visible (no contiene .hidden) ocultamos el panic
+      const visible = !menu.classList.contains('hidden');
+      panic.style.opacity = visible ? '0' : '1';
+      panic.style.pointerEvents = visible ? 'none' : 'auto';
+      panic.style.transform = visible ? 'scale(0.9)' : 'scale(1)';
+    });
+    obs.observe(menu, { attributes: true, attributeFilter: ['class'] });
+  }
+});
