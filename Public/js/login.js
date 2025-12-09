@@ -9,25 +9,27 @@ const buttonLogin = document.querySelector("#button-login");
 const buttonSendRegister = document.querySelector("#Send-Register");
 
 // funciones para ocultar todo lo necesario cuando el login se completa, y para volver a mostrarlo al cerrar sesion 
-function init() {
+function init(uid) {
+    localStorage.setItem("uid", uid);
     window.location.href = "/api/cuentas/menu";
 }
 //función para logearse
 buttonLogin.addEventListener("click", async (e) => {
     e.preventDefault();
     try {
+        let CurrentUser = localStorage.getItem("uid");
+        if (CurrentUser) {
+            localStorage.removeItem("uid");
+        }
         const usuario = await buscarUsuario();
         let contraseña = document.querySelector("#password").value;
-        console.log(usuario);
-        console.log(contraseña);
-        console.log(usuario.password);
 
         if (!usuario || contraseña !== usuario.password) {
             alert("Correo o contraseña incorrectas");
             return;
         }
         else {
-            init();
+            init(usuario.uid);
         }
 
     } catch (err) {
