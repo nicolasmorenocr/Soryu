@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú Principal</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/accesibilidad-estilos.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/accesibilidad-estilos.css">
+    >>>>>>> d44590135c8081216fe5bbf050422b377ec30176
 </head>
+
 <body>
     <div class="container">
         <h1>Bienvenido</h1>
@@ -21,19 +24,23 @@
         </div>
 
         <div class="botones">
-            <a href="tareas.html" class="btn">Tareas</a>
-            <a href="diario.html" class="btn">Diario</a>
+            <a href="/tareas.html" class="btn">Tareas</a>
+            <a href="/diario.html" class="btn">Diario</a>
         </div>
     </div>
+<a href="respiracion.html" id="panic-button" class="panic-button">
+    🆘
+</a>
 
     <!-- Scripts -->
-    <script src="js/accesibilidad.js"></script>
-    <script src="js/frontscript.js"></script>
+    <script src="/js/accesibilidad.js"></script>
+    <script src="/js/frontscript.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             renderCalendar(new Date());
             setupCalendarNavigation();
         });
     </script>
 </body>
+
 </html>

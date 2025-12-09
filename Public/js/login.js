@@ -10,9 +10,7 @@ const buttonSendRegister = document.querySelector("#Send-Register");
 
 // funciones para ocultar todo lo necesario cuando el login se completa, y para volver a mostrarlo al cerrar sesion 
 function init() {
-    /// no sé mano, eso es mienstras redireccionamos las cosas jaja 
-    formulario.classList.add("hidden");
-    fuffy.classList.remove("hidden");
+    window.location.href = "/api/cuentas/menu";
 }
 //función para logearse
 buttonLogin.addEventListener("click", async (e) => {
@@ -20,8 +18,11 @@ buttonLogin.addEventListener("click", async (e) => {
     try {
         const usuario = await buscarUsuario();
         let contraseña = document.querySelector("#password").value;
+        console.log(usuario);
+        console.log(contraseña);
+        console.log(usuario.password);
 
-        if (!usuario || contraseña !== usuario.contraseña) {
+        if (!usuario || contraseña !== usuario.password) {
             alert("Correo o contraseña incorrectas");
             return;
         }
@@ -66,10 +67,11 @@ buttonSendRegister.addEventListener("click", (e) => {
         }
 
         const datosUsuario = {
-            U_id: null,
-            Username: username,
-            contraseña: password,
-            Correo: email
+            password: password,
+            user_name: username,
+            correo: email,
+            edad: 3,
+            genero_id: 1
         };
 
         guardarUsuario(datosUsuario);
@@ -103,6 +105,7 @@ async function buscarUsuario() {
         if (data.error === false) {
             // Imprime los datos del usuario en la consola
             console.log('Datos recuperados correctamente:', data.body);
+            console.log(data.body[0])
             return data.body[0];
         } else {
             // Imprime el mensaje de error del servidor
@@ -116,9 +119,10 @@ async function buscarUsuario() {
 }
 // funcion para 
 async function guardarUsuario(data) {
-    const url = `http://localhost:4000/api/cuentas`;
+    const url = `http://localhost:4000/api/cuentas/`;
 
     try {
+        console.log("Datos a guardar:", data);
         console.log();
         const response = await fetch(url, {
             method: 'POST',

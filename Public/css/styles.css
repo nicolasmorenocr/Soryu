@@ -1299,3 +1299,36 @@ h2 {
     justify-content: center;
     margin-top: 20px; /* opcional */
 }
+
+.h1-login{
+  padding-top: 5%;
+}
+
+/* Exceptional styles for breathing */ 
+
+.h1-breathing{
+  padding-bottom: 5%;
+}
+
+/* Panic button - estilo robusto */
+.panic-button {
+  position: fixed !important;
+  left: 25px !important;
+  bottom: 25px !important;
+  width: 65px;
+  height: 65px;
+  background: var(--color-error, #ff4f5e);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  z-index: 9999999 !important; /* muy arriba para que quede sobre todo */
+  transition: transform 0.15s ease, background 0.25s ease;
+  pointer-events: auto;
+}
+.panic-button:hover { transform: scale(1.08); background: #ff2f3f; }
+

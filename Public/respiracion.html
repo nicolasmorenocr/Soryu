@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios de Respiración</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+    .card__body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+</style>
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="top-navigation">
+            <a href="menu.html" class="btn">← Menú</a>
+        </div>
+
+        <h1 class="h1-breathing">Ejercicio de Respiración Guiada</h1>
+
+        <div class="card" style="max-width: 600px; margin: 0 auto; text-align: center; padding: 20px;">
+            <div class="card__body">
+
+                <h2>Respira conmigo</h2>
+
+                <p style="margin-top: 10px;">
+                    Este ejercicio te ayudará a calmar tu sistema nervioso.  
+                    Solo sigue las instrucciones que aparecerán aquí.  
+                </p>
+
+                <!-- Círculo animado -->
+                <div id="breathing-circle"
+                    style="
+                        width: 180px;
+                        height: 180px;
+                        margin: 30px auto;
+                        background-color: var(--color-secondary);
+                        border-radius: 50%;
+                        transition: all 4s ease-in-out;
+                    ">
+                </div>
+
+                <!-- Texto de guía -->
+                <h2 id="breathing-text" style="margin-top: 20px;">
+                    Preparándote… 🌟
+                </h2>
+
+                <!-- Botón -->
+                <button class="btn-primary" id="start-btn" style="margin-top: 20px;">
+                    Iniciar ejercicio
+                </button>
+
+                <button class="btn-primary" id="back-btn" style="margin-top: 10px; display: none;">
+                    ⬅️ Volver atrás
+            </button>
+
+
+            </div>
+        </div>
+
+    </div>
+
+<script>
+    const circle = document.getElementById("breathing-circle");
+    const text = document.getElementById("breathing-text");
+    const startBtn = document.getElementById("start-btn");
+    const backBtn = document.getElementById("back-btn");
+
+    let started = false;
+    let breathingTimeout = null; // <- Necesario para detener la animación
+
+    startBtn.addEventListener("click", () => {
+        if (started) return;
+        started = true;
+
+        startBtn.style.display = "none";
+        backBtn.style.display = "block"; // <- Mostrar botón de volver
+
+        let step = 0;
+
+        const steps = [
+            { text: "⬆️ Inhala profundamente ⬆️", size: 260, duration: 4000 },
+            { text: "⏸️ Mantén el aire ⏸️", size: 260, duration: 3000 },
+            { text: "⬇️ Exhala lentamente ⬇️", size: 160, duration: 5000 },
+        ];
+
+        function breathe() {
+            const current = steps[step];
+            text.innerHTML = current.text;
+            circle.style.width = current.size + "px";
+            circle.style.height = current.size + "px";
+
+            breathingTimeout = setTimeout(() => {
+                step = (step + 1) % steps.length;
+                breathe();
+            }, current.duration);
+        }
+
+        breathe();
+    });
+
+    // 🔙 Función del botón Volver Atrás
+    backBtn.addEventListener("click", () => {
+        clearTimeout(breathingTimeout); // <- Detener animación
+
+        // Restaurar valores iniciales
+        circle.style.width = "180px";
+        circle.style.height = "180px";
+
+        text.innerHTML = "Preparándote… 🌟";
+
+        // Mostrar el botón de iniciar
+        startBtn.style.display = "block";
+
+        // Ocultar el botón de volver
+        backBtn.style.display = "none";
+
+        started = false; // <- Permitir volver a iniciar
+    });
+</script>
+
+</body>
+</html>

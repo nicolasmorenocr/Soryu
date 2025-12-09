@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tareas</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/accesibilidad-estilos.css">
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/accesibilidad-estilos.css">
 </head>
+
 <body>
     <div class="container">
         <h1>Tareas</h1>
 
         <div class="top-navigation">
-            <a href="menu.html" class="btn">← Menú</a>
-            <a href="diario.html" class="btn">Ir a Diario</a>
+            <a href="/menu.html" class="btn">← Menú</a>
+            <a href="/diario.html" class="btn">Ir a Diario</a>
         </div>
 
         <div class="calendar-container">
@@ -29,7 +32,9 @@
             <div class="form-section">
                 <h2>Añadir Nueva Tarea</h2>
                 <input type="text" id="taskName" placeholder="Nombre de la tarea" class="input-field">
-                <input type="number" id="taskFrequency" placeholder="Frecuencia (veces al día)" min="1" class="input-field">
+                <input type="number" id="taskFrequency" placeholder="Frecuencia (veces al día)" min="1"
+                    class="input-field">
+
 
                 <label for="taskType" class="form-label">Tipo de tarea:</label>
                 <select id="taskType" class="input-field">
@@ -65,12 +70,14 @@
             </div>
         </div>
     </div>
-
+<a href="respiracion.html" id="panic-button" class="panic-button">
+    🆘
+</a>
     <!-- Scripts -->
     <script src="js/accesibilidad.js"></script>
     <script src="js/frontscript.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             renderCalendar(new Date());
             setupCalendarNavigation();
             loadTasks();
@@ -79,4 +86,5 @@
         });
     </script>
 </body>
+
 </html>
