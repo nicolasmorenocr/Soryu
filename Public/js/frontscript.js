@@ -1,3 +1,4 @@
+
 function getTasks() {
     const tasks = localStorage.getItem('tasks');
     return tasks ? JSON.parse(tasks) : [];
@@ -444,6 +445,3 @@ function deleteEntry(index) {
     }
 }
 // funcion para volver al menú de inicio de sesión y cerrar sesión 
-document.querySelector("#logout").addEventListener("click", (e) => {
-    window.location.href = "/";
-})
