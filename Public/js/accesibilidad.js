@@ -72,9 +72,9 @@ function createAccessibilityPanel() {
             </div>
         </div>
     `;
-//Inserta ahora fuera del body porque ya no puedo más :D
-document.documentElement.insertAdjacentHTML('beforeend', panelHTML);
 
+    // Insertar al inicio del body
+    document.body.insertAdjacentHTML('afterbegin', panelHTML);
 }
 
 // Función para inicializar todos los event listeners

@@ -1,85 +1,84 @@
-const mysql = require("mysql");
-
+const { Pool } = require("pg");
 const config = require("../config");
 
+// Configuración de la conexión
 const dbconfig = {
-    host: config.mysql.host,
-    user: config.mysql.user,
-    password: config.mysql.password,
-    database: config.mysql.database,
+    host: config.postgres.host,
+    user: config.postgres.user,
+    password: config.postgres.password,
+    database: config.postgres.database,
+    port: config.postgres.port,
+    ssl: {
+        rejectUnauthorized: false
+    }
 }
 
-let conexion;
-//Funcion para crear la conexion con la base de datos
-function ConexionMysql() {
+// Crear el Pool
+const pool = new Pool(dbconfig);
 
-    conexion = mysql.createConnection(dbconfig);
-    //manejador de errores al intentar conectar
-    conexion.connect((err) => {
+// Función para verificar conexión
+function ConexionPostgres() {
+    pool.connect((err, client, release) => {
         if (err) {
-            console.log('[db err]', err);
-            setTimeout(ConexionMysql, 200);
+            console.error('[db err] Error conectando a Supabase:', err.stack);
+            setTimeout(ConexionPostgres, 2000);
         } else {
-            console.log("Conectado a la base de datos");
+            console.log("Conectado a la base de datos PostgreSQL/Supabase");
+            release();
         }
     });
-    //manejador de error durante la conexio
-    conexion.on('error', (err) => {
-        console.log('[db err]', err);
-        if (err.code === 'PROTOCOL_CONNECTION LOST') {
-            ConexionMysql();
-        } else {
-            throw err;
-        }
-    })
-}
-// funciones de manejo de base de datos
-
-function buscar(tabla, correo) {
-    return new Promise((resolve, reject) => {
-        conexion.query('SELECT * FROM ' + tabla + ' WHERE Correo= ?', correo, (err, resultados) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(resultados);
-            }
-        })
-
-    })
-
 }
 
-function agregar(tabla, datos) {
-    return new Promise((resolve, reject) => {
-        conexion.query('INSERT INTO ' + tabla + ' SET ?', datos, (err, resultados) => {
-            if (err) {
-                console.log('Llegamos a la base de datos, pero hubo un error POST body:', datos);
-                reject(err);
-            } else {
-                resolve(resultados);
-            }
-        })
-    })
+ConexionPostgres();
 
+// --- FUNCIONES CRUD ---
+
+async function agregar(tabla, datos) {
+    // Generar columnas y placeholders ($1, $2, etc.)
+    const columnas = Object.keys(datos).join(', ');
+    const placeholders = Object.keys(datos).map((_, i) => `$${i + 1}`).join(', ');
+    const valores = Object.values(datos);
+
+    const query = `INSERT INTO ${tabla} (${columnas}) VALUES (${placeholders}) RETURNING *`;
+
+    try {
+        const resultado = await pool.query(query, valores);
+        return resultado.rows[0];
+    } catch (err) {
+        console.error('[db agregar] Error:', err.message);
+        throw err;
+    }
 }
 
-function eliminar(tabla, data) {
-    return new Promise((resolve, reject) => {
-        conexion.query('DELETE FROM ' + tabla + ' WHERE U_id= ?', data.id, (err, resultados) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(resultados);
-            }
-        })
+async function buscar(tabla, correo) {
 
-    })
+    const query = `SELECT * FROM ${tabla} WHERE "correo" = $1`;
+    const values = [correo];
+    await pool.query(query, values);
 
-
+    try {
+        const resultado = await pool.query(query, [correo]);
+        return resultado.rows;
+    } catch (err) {
+        console.error('[db buscar] Error:', err.message);
+        throw err;
+    }
 }
-ConexionMysql();
+
+async function eliminar(tabla, data) {
+    const query = `DELETE FROM ${tabla} WHERE "uid" = $1`;
+
+    try {
+        const resultado = await pool.query(query, [data.id]);
+        return resultado.rowCount;
+    } catch (err) {
+        console.error('[db eliminar] Error:', err.message);
+        throw err;
+    }
+}
+
 module.exports = {
-    buscar,
     agregar,
+    buscar,
     eliminar
 }

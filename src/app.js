@@ -10,6 +10,7 @@ const cuentas = require("./modulos/cuentas/rutas");
 
 app = express();
 
+
 // configuración 
 app.set("port", config.app.port);
 
@@ -18,7 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //rutas
 app.use('/api/cuentas', cuentas)
-app.use(express.static(path.join(__dirname, '..', 'public'), {
+app.use('/Public', express.static(path.join(__dirname, 'Public')));
+app.use(express.static(path.join(__dirname, '../Public'), {
     index: 'login.html'
 }));
 module.exports = app;

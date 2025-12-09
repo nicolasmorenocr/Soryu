@@ -1,7 +1,7 @@
 const db = require("../../DB/mysql")
 //aqui e
 // Aqui el controlador de las operaciones para todo el tema del login
-const TABLA = 'cuentas';
+const TABLA = 'usuarios';
 
 
 

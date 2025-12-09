@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba del Panel de Accesibilidad</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/accesibilidad-estilos.css">
+    <style>
+        body {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .test-section {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .color-samples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .color-box {
+            padding: 20px;
+            border-radius: var(--radius-base);
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .color-primary { background: var(--color-primary); color: var(--color-btn-primary-text); }
+        .color-secondary { background: var(--color-secondary); color: var(--color-text); }
+        .color-success { background: var(--color-success); color: white; }
+        .color-error { background: var(--color-error); color: white; }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 10px;
+            margin: 5px 0;
+            background: var(--color-bg-1);
+            border-left: 3px solid var(--color-primary);
+            padding-left: 15px;
+        }
+        
+        .checklist {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .check-item {
+            padding: 12px;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+        }
+        
+        .check-item::before {
+            content: "✓ ";
+            color: var(--color-success);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Prueba del Panel de Accesibilidad</h1>
+    <p style="font-size: var(--font-size-lg); color: var(--color-text-secondary);">
+        Este archivo te ayuda a verificar que todo funciona correctamente.
+    </p>
+
+    <div class="test-section">
+        <h2>📍 Panel Flotante</h2>
+        <p>Busca el botón <strong>♿</strong> en la esquina inferior derecha de la pantalla.</p>
+        <p style="color: var(--color-success); font-weight: bold;">
+            ✓ Si lo ves, el panel se ha cargado correctamente
+        </p>
+    </div>
+
+    <div class="test-section">
+        <h2>🎨 Prueba de Colores</h2>
+        <p>Estos colores cambian según el tema seleccionado (claro/oscuro):</p>
+        <div class="color-samples">
+            <div class="color-box color-primary">Color Primario</div>
+            <div class="color-box color-secondary">Color Secundario</div>
+            <div class="color-box color-success">Color Éxito</div>
+            <div class="color-box color-error">Color Error</div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔤 Prueba de Tamaño de Letra</h2>
+        <p>Abre el panel de accesibilidad y prueba los botones A-, A, A+, A++</p>
+        <p>Este texto debe cambiar de tamaño cuando selecciones diferentes opciones.</p>
+        <div style="margin: 15px 0;">
+            <p style="font-size: 0.85em;">← Así se vería con A- (85%)</p>
+            <p style="font-size: 1em;">← Así se vería con A (100% normal)</p>
+            <p style="font-size: 1.2em;">← Así se vería con A+ (120%)</p>
+            <p style="font-size: 1.5em;">← Así se vería con A++ (150%)</p>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🌈 Prueba de Daltonismo</h2>
+        <p>Abre el panel y selecciona cada tipo de daltonismo para ver cómo cambian los colores:</p>
+        <ul class="feature-list">
+            <li><strong>Normal:</strong> Sin filtro (modo estándar)</li>
+            <li><strong>Protanopia:</strong> No ve el color rojo</li>
+            <li><strong>Deuteranopia:</strong> No ve el color verde</li>
+            <li><strong>Tritanopia:</strong> No ve el color azul</li>
+            <li><strong>Acromatopsia:</strong> Escala de grises (sin colores)</li>
+        </ul>
+        <p style="color: var(--color-error); margin-top: 15px;">
+            Los colores de arriba cambiarán de apariencia cuando selecciones un filtro.
+        </p>
+    </div>
+
+    <div class="test-section">
+        <h2>🌓 Prueba de Tema Claro/Oscuro</h2>
+        <p>Abre el panel y alterna entre ☀️ Claro y 🌙 Oscuro</p>
+        <p>Verás que:</p>
+        <ul class="feature-list">
+            <li>El fondo cambia de claro a oscuro</li>
+            <li>El texto cambia de contraste</li>
+            <li>Los colores se ajustan al nuevo tema</li>
+            <li>La preferencia se guarda automáticamente</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>📝 Checklist de Funcionalidad</h2>
+        <div class="checklist">
+            <div class="check-item">Panel abre correctamente</div>
+            <div class="check-item">Botones de letra funcionan</div>
+            <div class="check-item">Alto contraste se aplica</div>
+            <div class="check-item">Protanopia filtra colores</div>
+            <div class="check-item">Deuteranopia filtra colores</div>
+            <div class="check-item">Tritanopia filtra colores</div>
+            <div class="check-item">Acromatopsia es en B/N</div>
+            <div class="check-item">Modo oscuro cambia tema</div>
+            <div class="check-item">Modo claro vuelve normal</div>
+            <div class="check-item">Botón activo se resalta</div>
+            <div class="check-item">Reinicio limpia todo</div>
+            <div class="check-item">Click fuera cierra panel</div>
+            <div class="check-item">Datos persisten en recarga</div>
+            <div class="check-item">Funciona en móvil</div>
+            <div class="check-item">Accesibilidad con Tab/Enter</div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>💡 Consejos de Prueba</h2>
+        <ol style="line-height: 1.8;">
+            <li><strong>Prueba en navegadores diferentes:</strong> Chrome, Firefox, Safari</li>
+            <li><strong>Verifica en móvil:</strong> Abre en tu teléfono y prueba responsividad</li>
+            <li><strong>Usa DevTools:</strong> Abre F12 y revisa la consola por errores</li>
+            <li><strong>Verifica localStorage:</strong> Application → Local Storage</li>
+            <li><strong>Prueba combinaciones:</strong> Grande + Alto Contraste + Oscuro</li>
+            <li><strong>Combina filtros:</strong> Prueba Deuteranopia + Alto Contraste</li>
+        </ol>
+    </div>
+
+    <div class="test-section" style="background: var(--color-bg-3);">
+        <h2>✅ Si todo está bien...</h2>
+        <p style="font-size: var(--font-size-lg); color: var(--color-success); font-weight: bold;">
+            ¡Tu panel de accesibilidad está completamente funcional! 🎉
+        </p>
+        <p>Puedes integrar este mismo panel en todas tus páginas con solo:</p>
+        <pre style="background: var(--color-surface); padding: 15px; border-radius: var(--radius-base); overflow-x: auto;"><code>&lt;link rel="stylesheet" href="css/accesibilidad-estilos.css"&gt;
+&lt;script src="js/accesibilidad.js"&gt;&lt;/script&gt;</code></pre>
+    </div>
+
+    <script src="js/accesibilidad.js"></script>
+</body>
+</html>

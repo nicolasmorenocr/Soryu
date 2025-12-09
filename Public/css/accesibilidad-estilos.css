@@ -908,12 +908,7 @@ select.form-control {
     font-weight: var(--font-weight-medium);
     transition: all var(--duration-fast) var(--ease-standard);
     box-shadow: var(--shadow-xs);
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
-
-
 
 .font-size-btn:hover,
 .contrast-btn:hover,
@@ -1070,10 +1065,4 @@ select.form-control {
         font-size: 26px;
     }
 }
-/* Ocultar el botón cuando se abre el panel */
-.hidden-toggle {
-    opacity: 0;
-    pointer-events: none;
-    transform: scale(0.8);
-    transition: all 0.25s ease;
-}
+```

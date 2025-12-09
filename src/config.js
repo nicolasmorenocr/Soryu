@@ -6,10 +6,11 @@ module.exports = {
     app: {
         port: process.env.PORT,
     },
-    mysql: {
-        host: process.env.MYSQL_HOST || 'localhost',
-        user: process.env.MYSQL_USER || 'root',
-        password: process.env.MYSQL_PASSWORD || '',
-        database: process.env.MYSQL_DATABASE || 'ejemplo',
+    postgres: {
+        host: process.env.POSTGRES_HOST,
+        port: process.env.POSTGRES_PORT, // Asegúrate de que el puerto sea el correcto (6543)
+        user: process.env.POSTGRES_USER,
+        password: process.env.POSTGRES_PASSWORD,
+        database: process.env.POSTGRES_DATABASE,
     }
 };
