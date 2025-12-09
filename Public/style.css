@@ -63,12 +63,6 @@ form .password {
 
 /* Estilo para los botones del formulario */
 
-/*Estilo para los botones para iniciar sesion con los proveedores */
-#loginProviders {
-    position: relative;
-    margin: 30px 0;
-
-}
 
 .RegistroPopup {
     position: relative;

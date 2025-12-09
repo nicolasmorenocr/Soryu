@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diario</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
     <div class="container">
         <h1>Diario</h1>
-        
+
         <div class="top-navigation">
-            <a href="menu.html" class="btn">← Menú</a>
-            <a href="tareas.html" class="btn">Ir a Tareas</a>
+            <a href="/menu.html" class="btn">← Menú</a>
+            <a href="/tareas.html" class="btn">Ir a Tareas</a>
         </div>
 
         <div class="content-area">
             <div class="form-section">
                 <h2>Añadir Entrada al Diario</h2>
                 <input type="date" id="entryDate" class="input-field">
-                <textarea id="entryContent" placeholder="Escribe tu entrada aquí..." class="textarea-field" rows="8"></textarea>
+                <textarea id="entryContent" placeholder="Escribe tu entrada aquí..." class="textarea-field"
+                    rows="8"></textarea>
                 <button id="addEntryBtn" class="btn-primary">Guardar Entrada</button>
             </div>
 
@@ -28,15 +31,17 @@
                 <div id="entriesList" class="entries-list"></div>
             </div>
         </div>
-    </div>
 
-    <script src="frontscript.js"></script>
+    </div>
+    <input type="button" value="Cerrar Sesión" class="btn-primary" id="logout">
+    <script src="/frontscript.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             setTodayDate();
             loadEntries();
             setupEntryForm();
         });
     </script>
 </body>
+
 </html>

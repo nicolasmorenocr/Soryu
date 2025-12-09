@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú Principal</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
+
 <body>
     <div class="container">
         <h1>Bienvenido</h1>
-        
+
         <div class="calendar-container">
             <div class="calendar-header">
                 <button id="prevMonth" class="calendar-nav">&lt;</button>
@@ -20,18 +22,19 @@
         </div>
 
         <div class="botones">
-            <a href="tareas.html" class="btn">Tareas</a>
-            <a href="diario.html" class="btn">Diario</a>
+            <a href="/tareas.html" class="btn">Tareas</a>
+            <a href="/diario.html" class="btn">Diario</a>
         </div>
     </div>
 
-    <script src="frontscript.js"></script>
+    <script src="/frontscript.js"></script>
     <script>
         // Inicializar calendario en el menú
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             renderCalendar(new Date());
             setupCalendarNavigation();
         });
     </script>
 </body>
+
 </html>

@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tareas</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
+
 <body>
     <div class="container">
         <h1>Tareas</h1>
-        
+
         <div class="top-navigation">
-            <a href="menu.html" class="btn">← Menú</a>
-            <a href="diario.html" class="btn">Ir a Diario</a>
+            <a href="/menu.html" class="btn">← Menú</a>
+            <a href="/diario.html" class="btn">Ir a Diario</a>
         </div>
 
         <div class="calendar-container">
@@ -28,14 +30,15 @@
             <div class="form-section">
                 <h2>Añadir Nueva Tarea</h2>
                 <input type="text" id="taskName" placeholder="Nombre de la tarea" class="input-field">
-                <input type="number" id="taskFrequency" placeholder="Frecuencia (veces al día)" min="1" class="input-field">
-                
+                <input type="number" id="taskFrequency" placeholder="Frecuencia (veces al día)" min="1"
+                    class="input-field">
+
                 <label for="taskType" class="form-label">Tipo de tarea:</label>
                 <select id="taskType" class="input-field">
                     <option value="recurring">Tarea Recurrente (varios días)</option>
                     <option value="once">Tarea de Una Sola Vez</option>
                 </select>
-                
+
                 <div id="taskDaysField">
                     <label class="form-label">Días de la semana:</label>
                     <select id="taskDays" multiple class="input-field">
@@ -53,7 +56,7 @@
                     <label for="taskDate" class="form-label">Fecha de la tarea:</label>
                     <input type="date" id="taskDate" class="input-field">
                 </div>
-                
+
                 <input type="time" id="taskTime" class="input-field">
                 <button id="addTaskBtn" class="btn-primary">Añadir Tarea</button>
             </div>
@@ -67,7 +70,7 @@
 
     <script src="frontscript.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             renderCalendar(new Date());
             setupCalendarNavigation();
             loadTasks();
@@ -76,4 +79,5 @@
         });
     </script>
 </body>
+
 </html>
