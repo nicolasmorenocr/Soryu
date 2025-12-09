@@ -5,7 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tareas</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="/css/styles.css">
+=======
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/accesibilidad-estilos.css">
+>>>>>>> d44590135c8081216fe5bbf050422b377ec30176
 </head>
 
 <body>
@@ -30,8 +35,12 @@
             <div class="form-section">
                 <h2>Añadir Nueva Tarea</h2>
                 <input type="text" id="taskName" placeholder="Nombre de la tarea" class="input-field">
+<<<<<<< HEAD
                 <input type="number" id="taskFrequency" placeholder="Frecuencia (veces al día)" min="1"
                     class="input-field">
+=======
+                <input type="number" id="taskFrequency" placeholder="Frecuencia (veces al día)" min="1" class="input-field">
+>>>>>>> d44590135c8081216fe5bbf050422b377ec30176
 
                 <label for="taskType" class="form-label">Tipo de tarea:</label>
                 <select id="taskType" class="input-field">
@@ -68,7 +77,9 @@
         </div>
     </div>
 
-    <script src="frontscript.js"></script>
+    <!-- Scripts -->
+    <script src="js/accesibilidad.js"></script>
+    <script src="js/frontscript.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             renderCalendar(new Date());
