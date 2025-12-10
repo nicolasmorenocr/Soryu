@@ -7,6 +7,7 @@ const config = require("./config");
 // pq lo estoy usando para gestionar las rutas que tienen que ver con la
 //base de datos y que tales
 const cuentas = require("./modulos/cuentas/rutas");
+const tareas = require("./modulos/cuentas/tareasRoutes");
 
 app = express();
 
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //rutas
 app.use('/api/cuentas', cuentas)
+app.use('/api/tareas', tareas)
 app.use('/Public', express.static(path.join(__dirname, 'Public')));
 app.use(express.static(path.join(__dirname, '../Public'), {
     index: 'login.html'
