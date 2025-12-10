@@ -21,7 +21,12 @@ buttonLogin.addEventListener("click", async (e) => {
         if (CurrentUser) {
             localStorage.removeItem("uid");
         }
-        const usuario = await buscarUsuario();
+        const CorreoUsuario = document.querySelector("#email").value
+        if (!CorreoUsuario.includes("@")) {
+            alert("Por favor, ingresa un correo electronico valido.");
+            return;
+        }
+        const usuario = await buscarUsuario(CorreoUsuario);
         let contraseña = document.querySelector("#password").value;
 
         if (!usuario || contraseña !== usuario.password) {
@@ -67,6 +72,10 @@ buttonSendRegister.addEventListener("click", (e) => {
             alert("Por favor, completa todos los campos.");
             return;
         }
+        if (!email.includes("@")) {
+            alert("Por favor, ingresa un correo electronico valido.");
+            return;
+        }
 
         const datosUsuario = {
             password: password,
@@ -88,8 +97,7 @@ buttonSendRegister.addEventListener("click", (e) => {
 // ----------------------------------------------------
 
 // Funcion para buscar un usuario en la base de datos
-async function buscarUsuario() {
-    const CorreoUsuario = document.querySelector("#email").value
+async function buscarUsuario(CorreoUsuario) {
     const url = `http://localhost:4000/api/cuentas/${CorreoUsuario}`;
 
 
