@@ -45,13 +45,13 @@
                 <div id="taskDaysField">
                     <label class="form-label">Días de la semana:</label>
                     <select id="taskDays" multiple class="input-field">
-                        <option value="lunes">Lunes</option>
-                        <option value="martes">Martes</option>
-                        <option value="miercoles">Miércoles</option>
-                        <option value="jueves">Jueves</option>
-                        <option value="viernes">Viernes</option>
-                        <option value="sabado">Sábado</option>
-                        <option value="domingo">Domingo</option>
+                        <option value="Lunes">Lunes</option>
+                        <option value="Martes">Martes</option>
+                        <option value="Miercoles">Miércoles</option>
+                        <option value="Jueves">Jueves</option>
+                        <option value="Viernes">Viernes</option>
+                        <option value="Sabado">Sábado</option>
+                        <option value="Domingo">Domingo</option>
                     </select>
                 </div>
 
@@ -79,11 +79,14 @@
     <script src="js/frontscript.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Renderizar calendario INMEDIATAMENTE (síncrono)
             renderCalendar(new Date());
             setupCalendarNavigation();
-            loadTasks();
             setupTaskForm();
             toggleTaskDaysField();
+            
+            // Cargar tareas en background (NO bloquea el calendario)
+            initTasksCache().catch(err => console.error('Error en initTasksCache:', err));
         });
     </script>
 </body>

@@ -1,11 +1,61 @@
+// ========== CACHE SINCRÓNICO DE TAREAS ==========
+const uid = localStorage.getItem('uid');
+let tasksCache = [];
 
 function getTasks() {
-    const tasks = localStorage.getItem('tasks');
-    return tasks ? JSON.parse(tasks) : [];
+    return tasksCache;
 }
 
 function saveTasks(tasks) {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    tasksCache = tasks;
+    try { localStorage.setItem('tasks', JSON.stringify(tasks)); } catch (e) {}
+}
+
+async function initTasksCache() {
+    if (!uid) { tasksCache = []; return; }
+    try {
+        const response = await fetch(`/api/tareas/usuario/${uid}`, { method: 'GET' });
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        const data = await response.json();
+        tasksCache = Array.isArray(data) ? data : [];
+        localStorage.setItem('tasks', JSON.stringify(tasksCache));
+        loadTasks();
+        renderCalendar(currentDate);
+    } catch (error) {
+        console.error('Error cargando tareas:', error);
+        try {
+            const stored = localStorage.getItem('tasks');
+            tasksCache = stored ? JSON.parse(stored) : [];
+        } catch (e) { tasksCache = []; }
+    }
+}
+
+async function crearTareaEnServidor(task) {
+    try {
+        const response = await fetch(`/api/tareas/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(task)
+        });
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        const resultado = await response.json();
+        await initTasksCache();
+        return resultado;
+    } catch (error) {
+        console.error('Error creando tarea:', error);
+        throw error;
+    }
+}
+
+async function eliminarTareaDelServidor(tareaId) {
+    try {
+        const response = await fetch(`/api/tareas/${tareaId}`, { method: 'DELETE' });
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        await initTasksCache();
+    } catch (error) {
+        console.error('Error eliminando tarea:', error);
+        throw error;
+    }
 }
 
 function getEntries() {
@@ -199,14 +249,14 @@ function loadTasks() {
         return;
     }
 
-    tasks.forEach((task, index) => {
+    tasks.forEach((task) => {
         const taskElement = document.createElement('div');
         taskElement.className = 'task-item';
 
-        let taskDetailsHTML = `<p>Frecuencia: ${task.frequency} veces al día</p>`;
+        let taskDetailsHTML = `<p>Frecuencia: ${task.frecuencia} veces al día</p>`;
 
         if (task.type === 'once') {
-            const [year, month, day] = task.date.split('-');
+            const [year, month, day] = task.fecha_creacion.split('-');
             const taskDate = new Date(year, month - 1, day);
             const formattedDate = taskDate.toLocaleDateString('es-ES', {
                 year: 'numeric',
@@ -215,26 +265,26 @@ function loadTasks() {
             });
             taskDetailsHTML += `<p>Fecha: ${formattedDate}</p>`;
         } else {
-            if (task.days && task.days.length > 0) {
-                const days = Array.isArray(task.days) ? task.days.join(', ') : task.days;
+            if (task.dias && task.dias.length > 0) {
+                const days = Array.isArray(task.dias) ? task.dias.join(', ') : task.dias;
                 const daysCapitalized = days.split(', ').map(d => d.charAt(0).toUpperCase() + d.slice(1)).join(', ');
                 taskDetailsHTML += `<p>Días: ${daysCapitalized}</p>`;
             }
         }
 
-        if (task.time) {
-            taskDetailsHTML += `<p>Hora: ${task.time}</p>`;
+        if (task.fecha_limite) {
+            taskDetailsHTML += `<p>fecha limite: ${task.fecha_limite}</p>`;
         }
 
         taskElement.innerHTML = `
             <div class="task-info">
-                <div class="task-name">${task.name}</div>
+                <div class="task-name">${task.nombre}</div>
                 <div class="task-details">
                     ${taskDetailsHTML}
                 </div>
             </div>
             <div class="task-actions">
-                <button class="btn-delete" onclick="deleteTask(${index})">Eliminar</button>
+                <button class="btn-delete" onclick="deleteTask(${task.tarea_id})">Eliminar</button>
             </div>
         `;
 
@@ -247,7 +297,7 @@ function setupTaskForm() {
 
     if (!addBtn) return;
 
-    addBtn.addEventListener('click', function () {
+    addBtn.addEventListener('click', async function () {
         const name = document.getElementById('taskName').value;
         const frequency = document.getElementById('taskFrequency').value;
         const taskType = document.getElementById('taskType')?.value || 'recurring';
@@ -278,37 +328,36 @@ function setupTaskForm() {
                 return;
             }
         }
+        const timestamp = Date.now();
+const dateObject = new Date(timestamp);
 
+        // Mapear al formato del backend
         const task = {
-            name: name,
-            frequency: parseInt(frequency),
-            days: selectedDays,
-            date: selectedDate,
-            time: time,
-            type: taskType,
-            createdAt: new Date().toISOString()
+            nombre: name,
+            uid: uid ? parseInt(uid) : null,
+            repetible: taskType === 'recurring',
+            fecha_limite: dateObject.toLocaleDateString(),
+            frecuencia: frequency ?? 0,
+            dias: selectedDays
         };
 
-        const tasks = getTasks();
-        tasks.push(task);
-        saveTasks(tasks);
-
-        // Limpiar formulario
-        document.getElementById('taskName').value = '';
-        document.getElementById('taskFrequency').value = '';
-        daysSelect.selectedIndex = -1;
-        dateInput.value = '';
-        document.getElementById('taskTime').value = '';
-        if (document.getElementById('taskType')) {
-            document.getElementById('taskType').value = 'recurring';
+        try {
+            await crearTareaEnServidor(task);
+            
+            // Limpiar formulario
+            document.getElementById('taskName').value = '';
+            document.getElementById('taskFrequency').value = '';
+            daysSelect.selectedIndex = -1;
+            dateInput.value = '';
+            document.getElementById('taskTime').value = '';
+            if (document.getElementById('taskType')) {
+                document.getElementById('taskType').value = 'recurring';
+            }
+            toggleTaskDaysField();
+            alert('Tarea añadida exitosamente');
+        } catch (error) {
+            alert('Error al guardar la tarea: ' + error.message);
         }
-
-        // Recargar listas
-        loadTasks();
-        renderCalendar(currentDate);
-        toggleTaskDaysField();
-
-        alert('Tarea añadida exitosamente');
     });
 
     // Configurar cambio de tipo de tarea
@@ -334,13 +383,10 @@ function toggleTaskDaysField() {
     }
 }
 
-function deleteTask(index) {
+function deleteTask(tareaId) {
     if (confirm('¿Estás seguro de que deseas eliminar esta tarea?')) {
-        const tasks = getTasks();
-        tasks.splice(index, 1);
-        saveTasks(tasks);
-        loadTasks();
-        renderCalendar(currentDate);
+        eliminarTareaDelServidor(tareaId)
+            .catch(error => alert('Error al eliminar: ' + error.message));
     }
 }
 
