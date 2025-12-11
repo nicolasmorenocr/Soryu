@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       references: {
         model: 'tareas',
         key: 'tarea_id'
-      }
+      },
     }
   }, {
     sequelize,

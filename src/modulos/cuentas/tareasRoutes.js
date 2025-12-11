@@ -4,7 +4,7 @@ const controller = require('./tareasController');
 
 router.post('/', async (req, res) => {
     try {
-        const nuevaTarea = await controller.crear(req.body);    
+        const nuevaTarea = await controller.crearTarea(req.body);    
         res.status(201).json(nuevaTarea);
     } catch (err) {
         res.status(500).json({ error: err.message });

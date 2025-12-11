@@ -17,10 +17,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       defaultValue: Sequelize.Sequelize.fn('now')
     },
-    descripcion: {
-      type: DataTypes.STRING(1000),
-      allowNull: true
-    },
     uid: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -35,6 +31,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     fecha_limite: {
       type: DataTypes.DATEONLY,
+      allowNull: true
+    },
+    frecuencia: {
+      type: DataTypes.INTEGER,
       allowNull: false
     }
   }, {

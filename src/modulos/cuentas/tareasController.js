@@ -19,7 +19,7 @@ const sequelize = new Sequelize(
 
 const models = initModels(sequelize);
 
-async function crear(tareaData) {
+async function crearTarea(tareaData) {
 	const transaction = await sequelize.transaction();
 	try {
 		const diasPayload = Array.isArray(tareaData.dias) ? tareaData.dias : [];
@@ -59,11 +59,35 @@ async function crear(tareaData) {
 
 async function listarPorUsuario(uid) {
 	try {
+		// Incluir días asociados (a través de dias_por_tarea -> dias)
 		const tareas = await models.tareas.findAll({
 			where: { uid },
+			include: [
+				{
+					model: models.dias_por_tarea,
+					as: 'dias_por_tareas',
+					include: [{ model: models.dias, as: 'dium' }]
+				}
+			],
 			order: [["fecha_creacion", "DESC"]]
 		});
-		return tareas.map(t => t.toJSON());
+
+		// Mapear a un formato amigable para el front (mantener estructura similar a la anterior)
+		return tareas.map(t => {
+			const plain = t.toJSON();
+			const diasArr = (plain.dias_por_tareas || []).map(dpt => dpt.dium ? dpt.dium.dia : null).filter(dia => dia !== null);
+			return {
+				tarea_id: plain.tarea_id,
+				nombre: plain.nombre,
+				descripcion: plain.descripcion,
+				uid: plain.uid,
+				repetible: plain.repetible,
+				frecuencia: plain.frecuencia,
+				fecha_creacion: plain.fecha_creacion,
+				fecha_limite: plain.fecha_limite,
+				dias: diasArr
+			};
+		});
 	} catch (err) {
 		throw err;
 	}
@@ -101,16 +125,31 @@ async function actualizar(tarea_id, cambios) {
 }
 
 async function eliminar(tarea_id) {
+
+	// const transaction = await sequelize.transaction();
 	try {
-		const borrados = await models.tareas.destroy({ where: { tarea_id } });
+		// const diasPorTarea = await models.dias_por_tarea.findAll({
+		// 	where: { tarea_id },
+		// 	transaction
+		// });
+		await models.dias_por_tarea.destroy({ where: { tarea_id } });
+
+		// for (const dpt of diasPorTarea) {
+		// 	await dpt.destroy({ transaction });
+		// }
+		const borrados = await models.tareas.destroy({ where: { tarea_id }});
+		// await transaction.commit();
 		return borrados;
+
+
 	} catch (err) {
+		// await transaction.rollback();
 		throw err;
 	}
 }
 
 module.exports = {
-	crear,
+	crearTarea,
 	listarPorUsuario,
 	obtenerPorId,
 	actualizar,
