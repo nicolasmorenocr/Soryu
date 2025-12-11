@@ -22,6 +22,7 @@
             <div class="form-section">
                 <h2>Añadir Entrada al Diario</h2>
                 <input type="date" id="entryDate" class="input-field">
+                <input type="text" id="titleInput" placeholder="Título de la entrada" class="input-field">
                 <textarea id="entryContent" placeholder="Escribe tu entrada aquí..." class="textarea-field"
                     rows="8"></textarea>
                 <button id="addEntryBtn" class="btn-primary">Guardar Entrada</button>
@@ -46,6 +47,7 @@
                 setupEntryForm();
             });
         </script>
+        <script src="/js/diario.js"></script>
 </body>
 
 </html>
